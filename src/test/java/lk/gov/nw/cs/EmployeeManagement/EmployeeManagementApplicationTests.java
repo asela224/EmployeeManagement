@@ -10,6 +10,7 @@ class EmployeeManagementApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 		assertEquals(true,true);
 	}
 
