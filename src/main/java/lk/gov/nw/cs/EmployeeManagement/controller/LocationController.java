@@ -1,15 +1,16 @@
 package lk.gov.nw.cs.EmployeeManagement.controller;
 
-import lk.gov.nw.cs.EmployeeManagement.dto.request.EmployeeRequestDTO;
+import lk.gov.nw.cs.EmployeeManagement.dto.request.LocationDTO;
 import lk.gov.nw.cs.EmployeeManagement.service.LocationService;
 import lk.gov.nw.cs.EmployeeManagement.util.StandardResponse;
+import lk.gov.nw.cs.EmployeeManagement.util.enums.LocationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/location")
+@RequestMapping("/api/v1/location/")
 @CrossOrigin
 public class LocationController {
 
@@ -19,7 +20,7 @@ public class LocationController {
     @Value("${configuration.pagination.elementsPerPage}")
     private int pageSize;
 
-    @GetMapping(value = "/getAvailableLocations/page/{page}")
+    @GetMapping(value = "getAvailableLocations/page/{page}")
     public ResponseEntity<StandardResponse> getPaginatedLocations(@PathVariable(value = "page") int page){
 
       return  locationService.getLocationPage(page,pageSize);
@@ -27,38 +28,32 @@ public class LocationController {
 
     }
 
-    @GetMapping(value = "/getOULocations/organizationalUnit/{organizationalUnit}/page/{page}")
-    public ResponseEntity<StandardResponse> getPaginatedLocationsByOrganizationalUnit(@PathVariable(value = "organizationalUnit") String organizationalUnit,@PathVariable(value = "page")  int page){
+    @GetMapping(value = "getLocations/filter/{locationtype}/parameter/{parameter}/page/{page}")
+    public ResponseEntity<StandardResponse> getPaginatedLocationsByOrganizationalUnit(@PathVariable(value = "locationtype") LocationFilter locationFilter, @PathVariable(value = "parameter") String parameter, @PathVariable(value = "page")  int page){
 
-        return null;
+        return  locationService.getLocationListOf(locationFilter,parameter,page,pageSize);
     }
 
-    public ResponseEntity<StandardResponse> getPaginatedFilteredLocationsByOrganizationalUnit(String organizationalUnit,String filter, int page){
+    @GetMapping(value = "getLocations/locationId/{id}")
+    public ResponseEntity<StandardResponse> getLocationById(@PathVariable(value = "id") int locationId){
 
-        return null;
-    }
-
-
-    public ResponseEntity<StandardResponse> getLocationById(int locationId){
-
-        return null;
-    }
-
-    public ResponseEntity<StandardResponse> getLocationByName(int page){
-
-        return null;
+        return  locationService.getLocationById(locationId);
     }
 
     ///////////////////////////////
 
-    public ResponseEntity<StandardResponse> AddNewLocation(EmployeeRequestDTO employeeRequestDTO){
+    @PostMapping(value = "saveLocation")
+    public ResponseEntity<StandardResponse> AddNewLocation(LocationDTO locationDTO){
 
-        return null;
+        return locationService.saveLocation(locationDTO);
     }
 
-    public ResponseEntity<StandardResponse> updateLocation(int locationId){
+   @PutMapping(value = "updateLocation")
+    public ResponseEntity<StandardResponse> updateLocation(LocationDTO locationDTO){
 
-        return null;
+       return locationService.updateLocation(locationDTO);
     }
+
+
 
 }

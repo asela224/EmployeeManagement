@@ -3,6 +3,7 @@ package lk.gov.nw.cs.EmployeeManagement.entity;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.TypeDef;
@@ -43,7 +44,7 @@ import java.util.Set;
         private String gnDivision;
 
         @Column(name = "village_or_street",nullable = false)
-        private String villageOrStreet;
+        private String villageAurStreet;
 
         @OneToMany(mappedBy = "location")
         private Set<EmployeePersonal> employeePersonalSet;

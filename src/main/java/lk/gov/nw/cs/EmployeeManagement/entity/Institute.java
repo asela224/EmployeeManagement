@@ -1,10 +1,14 @@
 package lk.gov.nw.cs.EmployeeManagement.entity;
 
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lk.gov.nw.cs.EmployeeManagement.util.enums.InstituteType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +18,11 @@ import java.util.Set;
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    @TypeDefs({
+        @TypeDef(name = "json",
+                typeClass = JsonType.class)
+    })
+
     public class Institute {
 
         @Id
@@ -27,6 +36,18 @@ import java.util.Set;
         @Column(name = "institute_oic", nullable = false)
         private String oic;
 
+        @Column(name = "institute_postal_address", nullable = false)
+        private String postalAddress;
+
+        @Type(type = "json")
+        @Column(name = "institute_contact_numbers", nullable = false,columnDefinition = "json")
+        private String contactNumbers;
+
+        @Column(name = "institute_email", nullable = false)
+        private String email;
+
+
+
         @Enumerated(EnumType.STRING) @Column(name = "institute_type")
         private InstituteType instituteType;
 
@@ -35,9 +56,9 @@ import java.util.Set;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "parent_institute_id")
-        private Institute parentInstituteId;
+        private Institute parentInstitute;
 
-        @OneToMany(fetch = FetchType.LAZY,mappedBy = "parentInstituteId")
+        @OneToMany(fetch = FetchType.LAZY,mappedBy = "parentInstitute")
         private Set<Institute> childInstituteSet;
 
 

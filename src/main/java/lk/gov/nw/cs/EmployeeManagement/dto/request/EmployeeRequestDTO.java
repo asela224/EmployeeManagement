@@ -1,7 +1,6 @@
 package lk.gov.nw.cs.EmployeeManagement.dto.request;
 
 
-import lk.gov.nw.cs.EmployeeManagement.dto.response.LocationResponseDTO;
 import lk.gov.nw.cs.EmployeeManagement.util.previousInstitute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +27,7 @@ public class EmployeeRequestDTO {
     private InstituteDTO currentInstitute;
     private List<previousInstitute> previousInstituteList;
     private String permanentAddress;
-    private LocationResponseDTO location;
+    private LocationDTO location;
     private List<String> contactNumbers;
 
 }

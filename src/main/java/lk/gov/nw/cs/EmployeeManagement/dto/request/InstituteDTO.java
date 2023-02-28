@@ -1,10 +1,13 @@
 package lk.gov.nw.cs.EmployeeManagement.dto.request;
 
 
+import lk.gov.nw.cs.EmployeeManagement.entity.Location;
 import lk.gov.nw.cs.EmployeeManagement.util.enums.InstituteType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 
 
 @Data
@@ -17,6 +20,9 @@ import lombok.NoArgsConstructor;
         private String oic;
         private InstituteType instituteType;
         private int parentInstituteId;
+        private String postalAddress;
+        private String contactNumbers;
+        private String email;
+        private int locationId;
         private boolean activeStatus;
-
 }

@@ -1,6 +1,7 @@
 package lk.gov.nw.cs.EmployeeManagement.advisor;
 
 import lk.gov.nw.cs.EmployeeManagement.exception.DataNotFoundException;
+import lk.gov.nw.cs.EmployeeManagement.exception.InputNotInCorrectFormatException;
 import lk.gov.nw.cs.EmployeeManagement.util.StandardResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +21,16 @@ public class ApplicationWideExceptionAdvisor {
                                                 , HttpStatus.NOT_FOUND);
 
     }
+    @ExceptionHandler(InputNotInCorrectFormatException.class)
+    public ResponseEntity<StandardResponse> inputNotInCorrectFormatExceptionHandler(InputNotInCorrectFormatException inputNotInCorrectFormatException){
+
+
+        return new ResponseEntity<StandardResponse>(new StandardResponse
+                (406,
+                        "failed Validate Data",
+                            inputNotInCorrectFormatException.getMessage(),0,null)
+                , HttpStatus.NOT_ACCEPTABLE);
+
+    }
+
 }
