@@ -150,5 +150,5 @@
 		</plugins>
 		<finalName>EmployeeManagement</finalName>
 	</build>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 </project>
