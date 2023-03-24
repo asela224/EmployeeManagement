@@ -4,9 +4,8 @@ package lk.gov.nw.cs.EmployeeManagement.entity;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 
 import lk.gov.nw.cs.EmployeeManagement.util.previousInstitute;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @Table(name = "tbl_employee")
 @Entity
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @TypeDefs({
@@ -29,7 +28,10 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="emp_id_seq")
+    @SequenceGenerator(name="emp_id_seq", sequenceName="seq_emp_id", allocationSize=1)
+
     @Column(name = "employee_id")
     private int employeeId;
 
@@ -43,18 +45,22 @@ public class Employee {
     private String designation;
 
     @Column(name = "appointed_date_to_position")
+    @Temporal(TemporalType.DATE)
+   // @CreationTimestamp
+
     private Date appointedDateToCurrentDesignation;
 
     @Column(name = "transfer_date_to_position")
+    @Temporal(TemporalType.DATE)
     private Date transferDateToCurrentPermanentWorkPlace;
 
 
     @ManyToOne
-    @JoinColumn(name = "current_institute" )
+    @JoinColumn(name = "current_institute",foreignKey = @ForeignKey(name = "FK_Employee_Current_Institute") )
     private Institute currentInstitute;
 
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private EmployeePersonal employeePersonal;
 
     @Column(name = "previous_institutes", columnDefinition = "json")

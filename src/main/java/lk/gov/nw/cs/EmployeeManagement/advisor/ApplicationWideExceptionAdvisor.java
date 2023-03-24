@@ -1,8 +1,10 @@
 package lk.gov.nw.cs.EmployeeManagement.advisor;
 
 import lk.gov.nw.cs.EmployeeManagement.exception.DataNotFoundException;
+import lk.gov.nw.cs.EmployeeManagement.exception.DuplicateEntryException;
 import lk.gov.nw.cs.EmployeeManagement.exception.InputNotInCorrectFormatException;
 import lk.gov.nw.cs.EmployeeManagement.util.StandardResponse;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,5 +34,18 @@ public class ApplicationWideExceptionAdvisor {
                 , HttpStatus.NOT_ACCEPTABLE);
 
     }
+
+    @ExceptionHandler(DuplicateEntryException.class)
+    public ResponseEntity<StandardResponse> DuplicateKeyExceptionHandler(DuplicateEntryException duplicateEntryException){
+
+
+        return new ResponseEntity<StandardResponse>(new StandardResponse
+                (202,
+                        "failed Validate Data",
+                        duplicateEntryException.getMessage(), 0,null)
+                , HttpStatus.NOT_ACCEPTABLE);
+
+    }
+
 
 }

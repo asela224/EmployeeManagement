@@ -21,39 +21,29 @@ public class LocationController {
     private int pageSize;
 
     @GetMapping(value = "getAvailableLocations/page/{page}")
-    public ResponseEntity<StandardResponse> getPaginatedLocations(@PathVariable(value = "page") int page){
-
-      return  locationService.getLocationPage(page,pageSize);
-
-
+    public ResponseEntity<StandardResponse> getPaginatedLocations(@PathVariable(value = "page") int page) {
+        return locationService.getLocationPage(page, pageSize);
     }
 
     @GetMapping(value = "getLocations/filter/{locationtype}/parameter/{parameter}/page/{page}")
-    public ResponseEntity<StandardResponse> getPaginatedLocationsByOrganizationalUnit(@PathVariable(value = "locationtype") LocationFilter locationFilter, @PathVariable(value = "parameter") String parameter, @PathVariable(value = "page")  int page){
-
-        return  locationService.getLocationListOf(locationFilter,parameter,page,pageSize);
+    public ResponseEntity<StandardResponse> getPaginatedLocationsByOrganizationalUnit(@PathVariable(value = "locationtype") LocationFilter locationFilter, @PathVariable(value = "parameter") String parameter, @PathVariable(value = "page") int page) {
+        return locationService.getLocationListOf(locationFilter, parameter, page, pageSize);
     }
 
     @GetMapping(value = "getLocations/locationId/{id}")
-    public ResponseEntity<StandardResponse> getLocationById(@PathVariable(value = "id") int locationId){
-
-        return  locationService.getLocationById(locationId);
+    public ResponseEntity<StandardResponse> getLocationById(@PathVariable(value = "id") int locationId) {
+        return locationService.getLocationById(locationId);
     }
 
-    ///////////////////////////////
-
     @PostMapping(value = "saveLocation")
-    public ResponseEntity<StandardResponse> AddNewLocation(LocationDTO locationDTO){
-
+    public ResponseEntity<StandardResponse> AddNewLocation(LocationDTO locationDTO) {
         return locationService.saveLocation(locationDTO);
     }
 
-   @PutMapping(value = "updateLocation")
-    public ResponseEntity<StandardResponse> updateLocation(LocationDTO locationDTO){
-
-       return locationService.updateLocation(locationDTO);
+    @PutMapping(value = "updateLocation")
+    public ResponseEntity<StandardResponse> updateLocation(LocationDTO locationDTO) {
+        return locationService.updateLocation(locationDTO);
     }
-
 
 
 }

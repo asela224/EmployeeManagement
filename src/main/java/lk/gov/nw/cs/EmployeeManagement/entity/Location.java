@@ -2,14 +2,12 @@ package lk.gov.nw.cs.EmployeeManagement.entity;
 
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
     @Table( name = "tbl_location",
@@ -18,14 +16,14 @@ import java.util.Set;
             }
     )
     @Entity
-    @Data
+  @Getter @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @TypeDefs({
             @TypeDef(name = "json",
                     typeClass = JsonType.class)
     })
-
+    @Builder
 
     public class Location {
         @Id
@@ -47,9 +45,9 @@ import java.util.Set;
         private String villageAurStreet;
 
         @OneToMany(mappedBy = "location")
-        private Set<EmployeePersonal> employeePersonalSet;
+        private List<EmployeePersonal> employeePersonalSet;
 
         @OneToMany(mappedBy = "location")
-        private Set<Institute> instituteSet;
+        private List<Institute> instituteSet;
 
 }

@@ -49,7 +49,7 @@ public class LocationServiceIMPL implements LocationService {
 
     @Override
     public ResponseEntity<StandardResponse> getLocationListOf(LocationFilter locationFilter,String parameter, int page, int pageSize) {
-
+        //Get Location list according to string fractions and related field
         Page<Location> locations ;
         switch (locationFilter) {
             case PROVINCE:
@@ -109,7 +109,7 @@ public class LocationServiceIMPL implements LocationService {
         Optional<Location> location = locationRepository.findById(locationId);
 
         if (location.isPresent()) {
-            LocationDTO locationDTO = modelMapper.map(location, LocationDTO.class);
+            LocationDTO locationDTO = modelMapper.map(location.get(), LocationDTO.class);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse(200,
                             "success",

@@ -3,6 +3,7 @@ package lk.gov.nw.cs.EmployeeManagement.controller;
 import lk.gov.nw.cs.EmployeeManagement.dto.request.InstituteDTO;
 import lk.gov.nw.cs.EmployeeManagement.service.InstituteService;
 import lk.gov.nw.cs.EmployeeManagement.util.StandardResponse;
+import lk.gov.nw.cs.EmployeeManagement.util.enums.LocationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,17 @@ public class InstituteController {
 
         return  instituteService.getInstituteById(instituteId);
     }
+
+    @GetMapping(value = "getInstitutes/filter/{location type}/locationFilter/{parameter}/page/{page}")
+    public ResponseEntity<StandardResponse> getPaginatedInstitutesByLocation(@PathVariable(value = "location type") LocationFilter locationType,
+                                                                             @PathVariable(value = "parameter") String parameter,
+                                                                             @PathVariable(value = "page")  int page){
+
+        return  instituteService.getPaginatedLocationListOf(locationType,parameter,page,pageSize);
+    }
+
+
+
 
     ///////////////////////////////
 

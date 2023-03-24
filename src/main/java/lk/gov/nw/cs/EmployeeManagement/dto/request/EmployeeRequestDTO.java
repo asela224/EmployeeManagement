@@ -1,10 +1,14 @@
 package lk.gov.nw.cs.EmployeeManagement.dto.request;
 
 
+import com.sun.istack.NotNull;
+import lk.gov.nw.cs.EmployeeManagement.entity.Employee;
+import lk.gov.nw.cs.EmployeeManagement.entity.EmployeePersonal;
+import lk.gov.nw.cs.EmployeeManagement.entity.Institute;
 import lk.gov.nw.cs.EmployeeManagement.util.previousInstitute;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
@@ -12,12 +16,11 @@ import java.util.List;
 
 
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class EmployeeRequestDTO {
-
     private int employeeId;
     private String name;
     private String nic;

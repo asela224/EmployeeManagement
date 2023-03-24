@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.List;
 
 
 @Data
@@ -21,7 +22,7 @@ import javax.persistence.Column;
         private InstituteType instituteType;
         private int parentInstituteId;
         private String postalAddress;
-        private String contactNumbers;
+        private List<String> contactNumbers;
         private String email;
         private int locationId;
         private boolean activeStatus;

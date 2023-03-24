@@ -3,19 +3,18 @@ package lk.gov.nw.cs.EmployeeManagement.entity;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lk.gov.nw.cs.EmployeeManagement.util.enums.InstituteType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Table(name = "tbl_institute")
     @Entity
-    @Data
+    @Getter @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @TypeDefs({
@@ -41,7 +40,7 @@ import java.util.Set;
 
         @Type(type = "json")
         @Column(name = "institute_contact_numbers", nullable = false,columnDefinition = "json")
-        private String contactNumbers;
+        private List<String> contactNumbers;
 
         @Column(name = "institute_email", nullable = false)
         private String email;
@@ -54,20 +53,20 @@ import java.util.Set;
 
         private boolean activeStatus;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "parent_institute_id")
+        @ManyToOne(fetch = FetchType.LAZY,optional = true)
+        @JoinColumn(name = "parent_institute_id",foreignKey = @ForeignKey(name = "FK_Parent_Institute_ID"))
         private Institute parentInstitute;
 
         @OneToMany(fetch = FetchType.LAZY,mappedBy = "parentInstitute")
-        private Set<Institute> childInstituteSet;
+        private List<Institute> childInstituteSet;
 
 
-      @OneToMany(mappedBy = "currentInstitute")
-        private Set<Employee> employeeSetOfInstitute;
+        @OneToMany(mappedBy = "currentInstitute")
+        private List<Employee> employeeSetOfInstitute;
 
-      @JoinColumn(name = "location_id")
-      @ManyToOne
-      private Location location;
+        @JoinColumn(name = "location_id",foreignKey = @ForeignKey(name = "FK_Institute_Location_ID"))
+        @ManyToOne
+        private Location location;
 
 
 
