@@ -53,7 +53,7 @@ import java.util.Set;
 
         private boolean activeStatus;
 
-        @ManyToOne(fetch = FetchType.LAZY,optional = true,cascade = CascadeType.PERSIST)
+        @ManyToOne(fetch = FetchType.LAZY,optional = true)
        // @JoinColumn(name = "parent_institute_id",foreignKey = @ForeignKey(name = "FK_Parent_Institute_ID"))
         @JoinColumn(name = "parent_institute_id")
         private Institute parentInstitute;
